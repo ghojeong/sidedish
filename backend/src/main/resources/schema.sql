@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS `sidedish`.`delivery` (
 -- -----------------------------------------------------
 -- Table `sidedish`.`menu`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sidedish`.`menu` ;
+DROP TABLE IF EXISTS `sidedish`.`category` ;
 
-CREATE TABLE IF NOT EXISTS `sidedish`.`menu` (
+CREATE TABLE IF NOT EXISTS `sidedish`.`category` (
     `id` INT(11) NOT NULL,
     `name` VARCHAR(45) NOT NULL,
     `endpoint` VARCHAR(45) NOT NULL,
@@ -53,11 +53,10 @@ DROP TABLE IF EXISTS `sidedish`.`dish` ;
 CREATE TABLE IF NOT EXISTS `sidedish`.`dish` (
     `detail_hash` VARCHAR(50) NOT NULL,
     `image` VARCHAR(100) NOT NULL,
-    `alt` VARCHAR(50) NOT NULL,
     `title` VARCHAR(50) NOT NULL,
     `description` VARCHAR(100) NOT NULL,
-    `n_price` VARCHAR(45) NOT NULL,
-    `menu_id` INT(11) NOT NULL,
+    `price` VARCHAR(45) NOT NULL,
+    `category_id` INT(11) NOT NULL,
     PRIMARY KEY (`detail_hash`))
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
@@ -86,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `sidedish`.`sale` (
     `id` INT(11) NOT NULL,
     `badge` VARCHAR(45) NOT NULL,
     `sale_type` VARCHAR(45) NOT NULL,
-    `sale_vlaue` INT(11) NOT NULL,
+    `sale_value` INT(11) NOT NULL,
     PRIMARY KEY (`id`))
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
@@ -104,6 +103,15 @@ CREATE TABLE IF NOT EXISTS `sidedish`.`dish_sale` (
     PRIMARY KEY (`id`))
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
+
+
+DROP TABLE IF EXISTS `sidedish`.`detail_image` ;
+
+CREATE TABLE `sidedish`.`detail_image` (
+    `dish_detail_hash` VARCHAR(50) NOT NULL,
+    `url` VARCHAR(100) NOT NULL);
+
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
