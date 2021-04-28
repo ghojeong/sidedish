@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a8t-K1-2rL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a8t-K1-2rL">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,7 +11,7 @@
         <!--Main View Controller-->
         <scene sceneID="YIp-1X-pP6">
             <objects>
-                <viewController id="a6Y-Xj-foL" customClass="MainViewController" customModule="sidedish" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainViewController" id="a6Y-Xj-foL" customClass="MainViewController" customModule="sidedish" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OIq-UU-1cO">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,7 +24,7 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="130" id="8e9-mc-PEZ" customClass="MenuCell" customModule="sidedish" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="358" height="130"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="358" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8e9-mc-PEZ" id="PAV-B8-wAs">
                                             <rect key="frame" x="0.0" y="0.0" width="358" height="130"/>
@@ -205,7 +205,7 @@
         <!--[미노리키친] 규동 250g-->
         <scene sceneID="EhS-Az-FWy">
             <objects>
-                <viewController id="qPN-Ia-EMd" sceneMemberID="viewController">
+                <viewController id="qPN-Ia-EMd" customClass="DetailViewController" customModule="sidedish" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3gQ-WY-gxa">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -492,6 +492,17 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="[미노리키친] 규동 250g" id="0Hh-Qt-fv3"/>
+                    <connections>
+                        <outlet property="deliveryFee" destination="c8e-fB-oat" id="xyD-WD-nte"/>
+                        <outlet property="deliveryInfo" destination="bbd-Rs-d6k" id="sMq-6N-fYm"/>
+                        <outlet property="detailDescription" destination="iHl-RB-2dW" id="eW6-Xz-X0g"/>
+                        <outlet property="detailMainImage" destination="7ad-Uh-tLa" id="E13-6B-2aw"/>
+                        <outlet property="detailMainTitle" destination="2em-vB-7Bk" id="rv3-jX-qKy"/>
+                        <outlet property="detailOriginprice" destination="ugt-d3-gCD" id="9g7-mG-67B"/>
+                        <outlet property="detailSalePrice" destination="nXU-yX-Jyy" id="dwA-dS-Fte"/>
+                        <outlet property="navigationTItle" destination="0Hh-Qt-fv3" id="UHi-Ju-k1v"/>
+                        <outlet property="point" destination="AcQ-ND-VLh" id="UWx-a0-PfQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xqg-nJ-b0D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

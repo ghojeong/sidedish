@@ -69,9 +69,9 @@ struct SideDish: Decodable, SideDishManageable {
 }
 
 class Detail: Decodable {
-    let thumbImages: [String] //library/cache의 파일명들
-    let point: String //"63원"
-    let deliveryInfo: String //"서울 경기 새벽배송 / 전국택배 (제주 및 도서산간 불가) [화 수 목 금 토] 수령 가능한 상품입니다"
-    let deliveryFee: String //"2,500원 (40,000원 이상 구매 시 무료)"
+    let thumbImages: [String]
+    let point: Int
+    let deliveryInfo: String
+    let deliveryFee: Int
     let detailImages: [String]
 }

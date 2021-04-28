@@ -16,6 +16,7 @@ class MainViewController: UIViewController, ViewChangable {
     
     func pushNextView() {
         performSegue(withIdentifier: "detailView", sender: .none)
+        self.delegate.pushNextView()
     }
     
     @IBOutlet weak var menuTableView: UITableView!
@@ -25,6 +26,7 @@ class MainViewController: UIViewController, ViewChangable {
     private let mainMenuViewModel: MenuCellViewModel
     
     private var subscription = Set<AnyCancellable>()
+    private var delegate: ViewChangable!
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.mainMenuViewModel = MenuCellViewModel()
@@ -77,6 +79,9 @@ class MainViewController: UIViewController, ViewChangable {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
+    func set(delegate: ViewChangable) {
+        self.delegate = delegate
+    }
 }
 
