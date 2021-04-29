@@ -25,6 +25,7 @@ extension SaveSideDish {
     @NSManaged public var subtitle: String
     @NSManaged public var title: String
     @NSManaged public var thumbnailPath: String?
+    @NSManaged public var sideDishDetail: SideDishDetail
     
     enum Properties {
         static let entity = "SaveSideDish"
@@ -37,6 +38,7 @@ extension SaveSideDish {
         static let deliveryTypes = "deliveryTypes"
         static let badges = "badges"
         static let thumbnailPath = "thumbnailPath"
+        static let sideDishDetail = "SideDishDetail"
     }
     
     func getID() -> String {

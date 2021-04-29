@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Combine
 
-class DetailViewController: UIViewController/*, ViewChangable*/{
-    
-    @IBOutlet weak var navigationTItle: UINavigationItem!
+class DetailViewController: UIViewController {
+       
+    @IBOutlet weak var navigationTitle: UINavigationItem!
     @IBOutlet weak var detailMainImage: UIImageView!
     @IBOutlet weak var detailMainTitle: UILabel!
     @IBOutlet weak var detailDescription: UILabel!
@@ -20,24 +21,45 @@ class DetailViewController: UIViewController/*, ViewChangable*/{
     @IBOutlet weak var deliveryInfo: UILabel!
     @IBOutlet weak var deliveryFee: UILabel!
     
-//    private var mainViewController: MainViewController!
-//
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        super.init(nibName: nil, bundle: nil)
-//        self.mainViewController = storyboard?.instantiateViewController(withIdentifier: IdentifierControllers.main.rawValue) as? MainViewController
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//        self.mainViewController = storyboard?.instantiateViewController(withIdentifier: IdentifierControllers.main.rawValue) as? MainViewController
-//        mainViewController.set(delegate: self)
-//    }
+    private var viewModel: DetailViewModel
+    private var subscription = Set<AnyCancellable>()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.viewModel = DetailViewModel()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        self.viewModel = DetailViewModel()
+        super.init(coder: coder)
+    }
+    
     override func loadView() {
-        
+        bindViewModelProperties()
         super.loadView()
     }
     
-    private func bindViewModelProperties() {
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    func bindViewModelProperties() {
+        viewModel.$sideDishDetail
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let SideDishDetail = self?.viewModel.sideDishDetail else { return }
+                self?.navigationTitle.title = SideDishDetail.getTitle()
+                self?.detailMainTitle.text = SideDishDetail.getTitle()
+                self?.detailDescription.text = SideDishDetail.getdescription()
+                self?.detailSalePrice.text = String(describing: SideDishDetail.getPrice()) + "원"
+                self?.detailOriginprice.text = String(describing: SideDishDetail.getPrice()) + "원"
+                self?.point.text = String(describing: SideDishDetail.getDetail()!.point) + "원"
+                self?.deliveryInfo.text = SideDishDetail.getDetail()!.deliveryInfo
+                self?.deliveryFee.text = String(describing: SideDishDetail.getDetail()!.deliveryFee) + "원"
+            }.store(in: &subscription)
+    }
+    
+    func viewModelConfigure(section: Int, row: Int) {
+        viewModel.configureDetailMenuBoard(section: section, row: row) { }
     }
 }

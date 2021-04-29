@@ -26,7 +26,6 @@ class TurnonAppUsecase: ManufactureDataforViewModel {
     
     init(repository: DishRepository) {
         self.repository = repository
-        //self.repository.deleteAllInCoreData()
     }
     
     convenience init(baseUrl: String = "http://3.37.26.82:8080"){

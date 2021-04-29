@@ -14,7 +14,8 @@ final class DishRepository {
     private var context : NSManagedObjectContext!
     private var sideDishEntity : NSEntityDescription!
     private var categoryEntity : NSEntityDescription!
-
+    private var detailEntity : NSEntityDescription!
+    
     private var cancelBag = Set<AnyCancellable>()
     
     private let networkManager: AFNetworkManagable!
@@ -24,11 +25,12 @@ final class DishRepository {
         self.context = coreData.persistentContainer.viewContext
         self.sideDishEntity = NSEntityDescription.entity(forEntityName: SaveSideDish.Properties.entity, in: context)
         self.categoryEntity = NSEntityDescription.entity(forEntityName: SaveSideDishes.Properties.entity, in: context)
+        self.detailEntity = NSEntityDescription.entity(forEntityName: SaveDetail.Properties.entity, in: context)
         self.networkManager = NetworkManager(with: url)
         self.imageDownloadManager = ImageDownloadManager()
     }
-
     //MARK: - category
+    
     func getCategories(completionHandler: @escaping (Just<[SideDishesCategoryManageable]>) -> ()) {
         
         if let categorySaved = loadCategories() {
@@ -67,21 +69,24 @@ final class DishRepository {
         if let categories = categories, categories.isEmpty {
             return nil
         }
-
+        
         return categories
     }
     
     
     //MARK: - sidedishes
     func getSideDishes(endPoint: String, completionHandler: @escaping (Just<[SideDishManageable]>) -> ()) {
-        
+        	
         if let sideDishesSaved = loadSideDishes(of: endPoint) {
+            print("찾음")
             return completionHandler(Just(sideDishesSaved))
         }
         
         let mainSideDishes = networkManager.get(decodingType: [SideDish].self, endPoint: endPoint)
         
-        mainSideDishes.sink { (_) in
+        mainSideDishes
+            .receive(on: DispatchQueue.main)
+            .sink { (_) in
         } receiveValue: { (dishes) in
             self.updateCategory(of: endPoint, with: dishes)
             self.save()
@@ -89,20 +94,42 @@ final class DishRepository {
         }.store(in: &cancelBag)
     }
     
+    func getSideDishDetail(endPoint: String, section: Int, row: Int, completionHandler: @escaping (Just<SideDishManageable>) -> ()){
+        
+        if let sideDishSaved = loadSideDishes(of: endPoint)?[row], let _ = loadSideDishes(of: endPoint)?[row].getDetail() {
+            return completionHandler(Just(sideDishSaved))
+        }
+        
+        let sidedishDetailHash = self.loadSideDishes(of: endPoint)![row].getID()
+        let mainSideDishDetail = networkManager.get(decodingType: SideDishDetail.self, endPoint: EndPoint.detail + "/\(sidedishDetailHash)")
+        
+        mainSideDishDetail.sink { (_) in
+        } receiveValue: { (dishDetail) in
+            self.updateDishDetail(endPoint: endPoint, row: row, with: dishDetail)
+            self.save()
+            completionHandler(Just(self.loadSideDishes(of: endPoint)![row]))
+        }.store(in: &cancelBag)
+    }
+    
     private func updateCategory(of endPoint: String, with sideDishes: [SideDish]) {
         let fetchRequest = findSideDishes(query: Query.endPoint, match: endPoint)
+        
         let objectToUpdate = try! self.context.fetch(fetchRequest).first!
         objectToUpdate.setValue(sideDishes, forKey: "sideDish")
-        
     }
-
+    
+    private func updateDishDetail(endPoint: String, row: Int, with sideDishDetail: SideDishDetail) {
+        let fetchRequest = findSideDishes(query: Query.endPoint, match: endPoint)
+        let objectToUpdate = try! self.context.fetch(fetchRequest).first!
+        objectToUpdate.sideDish![row].detail = sideDishDetail
+    }
+    
     private func loadSideDishes(of endPoint: String) -> [SideDishManageable]? {
         let fetchRequest = findSideDishes(query: Query.endPoint, match: endPoint)
         
         guard let targetCategory = try? context.fetch(fetchRequest) else {
             return nil
         }
-        
         return targetCategory[0].sideDish
     }
     
@@ -126,7 +153,7 @@ final class DishRepository {
             completionHandler(Just(cachePath))
         }
     }
- 
+    
     //MARK: - delete
     func deleteAllInCoreData(){
         let saveSideDishesRequest: NSFetchRequest<SaveSideDishes> = SaveSideDishes.fetchRequest()

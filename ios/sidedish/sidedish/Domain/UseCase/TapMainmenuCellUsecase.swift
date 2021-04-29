@@ -6,16 +6,24 @@
 //
 
 import Foundation
+import Combine
 
 class TapMainmenuCellUsecase {
     private let repository : DishRepository
     
     init(repository: DishRepository) {
         self.repository = repository
-        self.repository.deleteAllInCoreData()
     }
     
-    func manufactureforDetailView() {
-        //requestToRepository
+    convenience init(baseUrl: String = "http://3.37.26.82:8080"){
+        let repository = DishRepository(with: baseUrl)
+        self.init(repository: repository)
     }
+    
+    func manufactureToTapUsecase(section: Int, row: Int, endPoint: String, completionHandler: @escaping (Just<SideDishManageable>) ->()) {
+        return repository.getSideDishDetail(endPoint: endPoint, section: section, row: row) { (publiser) in
+            completionHandler(publiser)
+        }
+    }
+    
 }

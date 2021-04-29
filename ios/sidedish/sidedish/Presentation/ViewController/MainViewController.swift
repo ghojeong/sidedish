@@ -9,14 +9,15 @@ import UIKit
 import Combine
 
 protocol ViewChangable {
-    func pushNextView() -> Void
+    func pushNextView(section: Int, row: Int) -> Void
 }
 
 class MainViewController: UIViewController, ViewChangable {
     
-    func pushNextView() {
-        performSegue(withIdentifier: "detailView", sender: .none)
-        self.delegate.pushNextView()
+    func pushNextView(section: Int, row: Int) {
+        let detailViewController = self.storyboard?.instantiateViewController(identifier: "DetailViewController") as! DetailViewController
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+        detailViewController.viewModelConfigure(section: section, row: row)
     }
     
     @IBOutlet weak var menuTableView: UITableView!
