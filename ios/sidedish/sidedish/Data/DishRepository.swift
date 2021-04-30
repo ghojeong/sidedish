@@ -78,7 +78,6 @@ final class DishRepository {
     func getSideDishes(endPoint: String, completionHandler: @escaping (Just<[SideDishManageable]>) -> ()) {
         	
         if let sideDishesSaved = loadSideDishes(of: endPoint) {
-            print("찾음")
             return completionHandler(Just(sideDishesSaved))
         }
         

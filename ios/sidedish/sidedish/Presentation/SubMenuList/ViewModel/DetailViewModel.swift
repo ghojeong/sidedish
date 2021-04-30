@@ -30,6 +30,7 @@ class DetailViewModel {
                 .sink { (_) in
             } receiveValue: { result in
                 self.sideDishDetail = result
+                
             }.store(in: &self.cancelBag)
         }
     }
