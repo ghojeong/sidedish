@@ -39,8 +39,6 @@ class MainTableViewDelegate: NSObject, UITableViewDelegate {
     }
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let count = indexPath.row
-        CustomToaster.popStockBubble(count: count)
         self.delegate?.pushNextView(section: indexPath.section, row: indexPath.row)
     }
     

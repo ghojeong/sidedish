@@ -22,7 +22,7 @@ class CustomToaster {
     enum MessageType: String {
         case category = "현재 카테고리의 품목은 "
         case stock = "현재 남은 수량은 "
-        
+
         func fullText(for count: Int) -> String {
             return rawValue + "\(count)개 입니다"
         }

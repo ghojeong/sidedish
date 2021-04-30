@@ -30,8 +30,18 @@ class DetailViewModel {
                 .sink { (_) in
             } receiveValue: { result in
                 self.sideDishDetail = result
-                
+                self.quantityToaster(for: self.sideDishDetail.getID(), completionHandler: CustomToaster.popStockBubble(count:))
             }.store(in: &self.cancelBag)
         }
+    }
+    
+    private func quantityToaster(for hash: String, completionHandler: @escaping (Int) -> ()) {
+        let quantity = NetworkManager(with: "http://3.37.26.82:8080")
+            .get(decodingType: [String: Int].self, endPoint: "/detail/\(hash)/quantity")
+        quantity.sink { _ in
+        } receiveValue: { quantity in
+            let count = quantity["quantity"] ?? 0
+            completionHandler(count)
+        }.store(in: &self.cancelBag)
     }
 }
