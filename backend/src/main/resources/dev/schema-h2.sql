@@ -45,11 +45,11 @@ CREATE TABLE IF NOT EXISTS `sidedish`.`dish` (
     `point` INT(11),
     `delivery_info` VARCHAR(50),
     `delivery_fee` INT(11),
-    `category_id` INT(11),
+    `category` INT(11),
     `quantity` INT(11),
     `current_date_time` TIMESTAMP,
     PRIMARY KEY (`detail_hash`),
-    FOREIGN KEY (`category_id`) REFERENCES `sidedish`.`category`(`id`)
+    FOREIGN KEY (`category`) REFERENCES `sidedish`.`category`(`id`)
     )
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
@@ -143,7 +143,7 @@ VALUES
 
 
 INSERT INTO sidedish.dish
-    (detail_hash, image, title, description, price, sale_price,point, delivery_info, delivery_fee, category_id, quantity)
+    (detail_hash, image, title, description, price, sale_price,point, delivery_info, delivery_fee, category, quantity)
 VALUES
     ('HBDEF', 'http://public.codesquad.kr/jk/storeapp/data/2d3f99a9a35601f4e98837bc4d39b2c8.jpg', '[미노리키친] 규동 250g', '일본인의 소울푸드! 한국인도 좋아하는 소고기덮밥', 6000, 5200, 52,'서울 경기 새벽배송 / 전국택배 (제주 및 도서산간 불가)' ,2500, 1, 5),
     ('HDF73', 'http://public.codesquad.kr/jk/storeapp/data/7674311a02ba7c88675f3186ddaeef9e.jpg', '[빅마마의밥친구] 아삭 고소한 연근고기조림 250g', '편식하는 아이도 좋아하는 건강한 연근조림', 5500, null, 55, '서울 경기 새벽배송 / 전국택배 (제주 및 도서산간 불가)' ,2500, 1, 5),

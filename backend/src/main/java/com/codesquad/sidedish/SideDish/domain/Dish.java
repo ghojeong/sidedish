@@ -13,11 +13,11 @@ public class Dish {
     private final Integer point;
     private final String deliveryInfo;
     private final Integer deliveryFee;
-    private final Long categoryId;
+    private final Long category;
     private Integer quantity;
     private final LocalDateTime currentDateTime;
 
-    public Dish(String detailHash, String image, String title, String description, Integer price, Integer salePrice, Integer point, String deliveryInfo, Integer deliveryFee, Long categoryId, Integer quantity, LocalDateTime currentDateTime) {
+    public Dish(String detailHash, String image, String title, String description, Integer price, Integer salePrice, Integer point, String deliveryInfo, Integer deliveryFee, Long category, Integer quantity, LocalDateTime currentDateTime) {
         this.detailHash = detailHash;
         this.image = image;
         this.title = title;
@@ -27,7 +27,7 @@ public class Dish {
         this.point = point;
         this.deliveryInfo = deliveryInfo;
         this.deliveryFee = deliveryFee;
-        this.categoryId = categoryId;
+        this.category = category;
         this.quantity = quantity;
         this.currentDateTime = currentDateTime;
     }
@@ -72,8 +72,8 @@ public class Dish {
         return deliveryFee;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Long getCategory() {
+        return category;
     }
 
     public Integer getQuantity() {
@@ -97,11 +97,11 @@ public class Dish {
             return false;
         }
         Dish dish = (Dish) o;
-        return Objects.equals(detailHash, dish.detailHash) && Objects.equals(image, dish.image) && Objects.equals(title, dish.title) && Objects.equals(description, dish.description) && Objects.equals(price, dish.price) && Objects.equals(salePrice, dish.salePrice) && Objects.equals(point, dish.point) && Objects.equals(deliveryInfo, dish.deliveryInfo) && Objects.equals(deliveryFee, dish.deliveryFee) && Objects.equals(categoryId, dish.categoryId) && Objects.equals(quantity, dish.quantity) && Objects.equals(currentDateTime, dish.currentDateTime);
+        return Objects.equals(detailHash, dish.detailHash) && Objects.equals(image, dish.image) && Objects.equals(title, dish.title) && Objects.equals(description, dish.description) && Objects.equals(price, dish.price) && Objects.equals(salePrice, dish.salePrice) && Objects.equals(point, dish.point) && Objects.equals(deliveryInfo, dish.deliveryInfo) && Objects.equals(deliveryFee, dish.deliveryFee) && Objects.equals(category, dish.category) && Objects.equals(quantity, dish.quantity) && Objects.equals(currentDateTime, dish.currentDateTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(detailHash, image, title, description, price, salePrice, point, deliveryInfo, deliveryFee, categoryId, quantity, currentDateTime);
+        return Objects.hash(detailHash, image, title, description, price, salePrice, point, deliveryInfo, deliveryFee, category, quantity, currentDateTime);
     }
 }
