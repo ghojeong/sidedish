@@ -3,18 +3,16 @@ package com.codesquad.sidedish.SideDish.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Category {
     @Id
     private final Long id;
     private final String categoryName;
     private final String endPoint;
-    
-    private Set<Dish> dishes = new HashSet<>();
+
+    @MappedCollection(keyColumn = "detail_hash")
+    private List<Dish> dishes = new ArrayList<>();
 
     public Category(Long id, String categoryName, String endPoint) {
         this.id = id;
@@ -34,7 +32,7 @@ public class Category {
         return endPoint;
     }
 
-    public Set<Dish> getDishes() {
+    public List<Dish> getDishes() {
         return dishes;
     }
 
