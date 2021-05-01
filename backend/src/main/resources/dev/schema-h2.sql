@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `sidedish`.`dish` (
     `point` INT(11),
     `delivery_info` VARCHAR(50),
     `delivery_fee` INT(11),
+    `category_key` int AUTO_INCREMENT,
     `category` INT(11),
     `quantity` INT(11),
     `current_date_time` TIMESTAMP,

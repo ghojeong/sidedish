@@ -11,8 +11,7 @@ public class Category {
     private final String categoryName;
     private final String endPoint;
 
-    @MappedCollection(keyColumn = "detail_hash")
-    private List<Dish> dishes = new ArrayList<>();
+    private Map<Integer, Dish> dishes = new HashMap<>();
 
     public Category(Long id, String categoryName, String endPoint) {
         this.id = id;
@@ -32,7 +31,7 @@ public class Category {
         return endPoint;
     }
 
-    public List<Dish> getDishes() {
+    public Map<Integer, Dish> getDishes() {
         return dishes;
     }
 
