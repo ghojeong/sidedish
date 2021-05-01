@@ -1,5 +1,6 @@
 package com.codesquad.sidedish.SideDish.service;
 
+import com.codesquad.sidedish.SideDish.domain.Category;
 import com.codesquad.sidedish.SideDish.domain.CategoryRepository;
 import com.codesquad.sidedish.SideDish.dto.CategoryDto;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,7 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<CategoryDto> getList() {
-        return categoryRepository.findAll()
-                .stream().map(CategoryDto::from)
-                .collect(Collectors.toList());
+    public List<Category> getList() {
+        return categoryRepository.findAll();
     }
 }

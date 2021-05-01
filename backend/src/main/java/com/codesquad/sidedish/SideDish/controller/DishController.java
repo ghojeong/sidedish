@@ -1,5 +1,6 @@
 package com.codesquad.sidedish.SideDish.controller;
 
+import com.codesquad.sidedish.SideDish.domain.Category;
 import com.codesquad.sidedish.SideDish.dto.*;
 import com.codesquad.sidedish.SideDish.service.CategoryService;
 import com.codesquad.sidedish.SideDish.service.DishService;
@@ -24,8 +25,8 @@ public class DishController {
 
     @GetMapping("/categories")
     @ApiOperation(value = "카테고리", notes = "요리 카테고리 목록을 반환합니다.")
-    public ResponseEntity<List<CategoryDto>> getCategories() {
-        List<CategoryDto> categories = categoryService.getList();
+    public ResponseEntity<List<Category>> getCategories() {
+        List<Category> categories = categoryService.getList();
         return ResponseEntity.ok().body(categories);
     }
 

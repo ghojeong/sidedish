@@ -48,7 +48,9 @@ CREATE TABLE IF NOT EXISTS `sidedish`.`dish` (
     `category_id` INT(11),
     `quantity` INT(11),
     `current_date_time` TIMESTAMP,
-    PRIMARY KEY (`detail_hash`))
+    PRIMARY KEY (`detail_hash`),
+    FOREIGN KEY (`category_id`) REFERENCES `sidedish`.`category`(`id`)
+    )
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
 
